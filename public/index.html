@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+  
+        body{
+            margin: 0;
+    padding: 0; 
+    box-sizing: border-box;
+    
+        }
+        #chat-area {
+            margin: 10px auto;
+            width: 80%;
+            height: 400px;
+            overflow:scroll;
+            border: 1px solid gray;
+            border-radius: 4px;
+        }
+
+        .input {            
+            width: 100%;
+        }
+
+        .submit-area{
+            justify-content: center;
+            display: flex;
+            margin: 20px auto;
+            width: 80%;            
+        } 
+        .submit-form{
+            width: 80%;
+            margin: 0 auto;
+        }      
+
+        textarea {
+            width: 100%;
+        }
+
+        .box {
+            width: 96%;
+            margin: 0 auto;
+            padding: 10px 10px;
+            background-color: #C4DBFE;
+            margin: 10px auto;            
+        }
+
+        .answer {
+            background-color: aquamarine;
+        }
+
+        button {
+            background-color: #004089;
+            color: white;
+            padding: 10px 10px;
+            border-radius: 5px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    
+        <div id="chat-area">
+
+        </div>
+        <div class="submit-form">
+            <div class="input">
+                <textarea name="input" id="input" cols="40" rows="3"></textarea>
+                <button id="btn">Submit</button>
+            </div>    
+        </div>  
+    
+   
+
+     
+
+</body>
+</html>
+<script>
+const btn = document.getElementById("btn")
+
+btn.addEventListener('click', getResponse)
+
+async function getResponse() {                  
+  var inputText = document.getElementById("input").value           
+  const parentDiv = document.getElementById("chat-area") 
+  if(inputText === '') { return }
+  const question = document.createElement('div')
+question.innerHTML = inputText
+question.classList.add("box")
+parentDiv.appendChild(question)
+
+document.getElementById("input").value = ''
+
+let res = await fetch('http://localhost:5000/chat', 
+  {
+    method: 'POST',
+    headers: {
+      "Content-Type": 'application/json'                
+    },
+    body: JSON.stringify({
+      question: inputText +"Please keep the response concise and under 500 words."         
+    })
+  }
+)
+
+const data = await res.json()
+if(data.message) {
+  const answer = document.createElement('div')
+  answer.innerHTML = data.message
+  answer.classList.add("box", "answer")
+  parentDiv.appendChild(answer)
+}
+
+await fetch('https://hook.eu2.make.com/7o3jsw2djbua7kuqpjta65w67nylcaim', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      question: inputText,
+      answer: data.message
+    })
+  })
+  // The remaining code goes inside this function
+}
+
+
+
+
+
+
+
+</script>
