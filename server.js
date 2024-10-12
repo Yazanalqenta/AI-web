@@ -18,7 +18,7 @@ app.listen(PORT, ()=> {
 
 const openai = new OpenAI({
     // replace your-api-key with your API key from ChatGPT
-    apiKey: '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'
+    apiKey: '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'
 })
 
 app.post('/chat', async (req, res)=> { 
