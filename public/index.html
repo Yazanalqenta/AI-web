@@ -102,7 +102,8 @@ let res = await fetch('https://ai-web-4j0j.onrender.com/chat',
       "Content-Type": 'application/json'                
     },
     body: JSON.stringify({
-      question: inputText +"Please keep the response concise and under 500 words."         
+      question: inputText ,
+      instructions: "Please keep the response concise and under 500 words."        
     })
   }
 )
