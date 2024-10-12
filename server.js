@@ -22,7 +22,9 @@ const openai = new OpenAI({
 })
 
 app.post('/chat', async (req, res)=> { 
-  console.log(req.body);  
+  console.log(req.body);
+  console.log(res.body);  
+
     try {
       const resp = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
