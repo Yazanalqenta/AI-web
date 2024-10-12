@@ -23,7 +23,7 @@ const openai = new OpenAI({
 
 app.post('/chat', async (req, res)=> { 
   console.log(req.body);
-  console.log(res.body);  
+  console.log(res);  
 
     try {
       const resp = await openai.chat.completions.create({
