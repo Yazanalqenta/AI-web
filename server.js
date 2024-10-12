@@ -8,7 +8,7 @@ app.use(express.static('public'))
 app.use(bodyParser.json());
 
 app.use(cors({
-  origin: 'https://ai-web-b078.onrender.com/'
+  origin: 'https://ai-web-b078.onrender.com'
 }));
 
 const PORT = process.env.PORT || 3000;
@@ -21,7 +21,8 @@ const openai = new OpenAI({
     apiKey: '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'
 })
 
-app.post('/chat', async (req, res)=> {   
+app.post('/chat', async (req, res)=> { 
+  console.log(req.body);  
     try {
       const resp = await openai.chat.completions.create({
         model: "gpt-3.5-turbo",
